@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- CV analysis UI depends only on `analyzeCv` in src/lib/analysis.ts (currently a mock); replace its body with an AI server function to keep the UI unchanged.
