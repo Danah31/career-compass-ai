@@ -24,7 +24,7 @@ Rules:
 Write in the same language as the job description. Keep each item under 25 words.`;
 
 export const runCvAnalysis = createServerFn({ method: "POST" })
-  .inputValidator((input) =>
+  .validator((input) =>
     z.object({ cvText: z.string(), jobDescription: z.string() }).parse(input),
   )
   .handler(async ({ data }): Promise<AnalyzeResponse> => {
