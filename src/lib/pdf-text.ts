@@ -22,7 +22,7 @@ export async function extractPdfText(file: File): Promise<string> {
     const content = await page.getTextContent();
     pages.push(content.items.map((it) => ("str" in it ? it.str : "")).join(" "));
   }
-  await doc.destroy();
+  await (doc as unknown as { cleanup?: () => Promise<void> }).cleanup?.();
 
   const text = pages.join("\n").replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim();
   if (text.length < 50) {
