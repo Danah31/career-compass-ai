@@ -5,7 +5,7 @@ import {
   TrendingUp, TrendingDown, Target, Lightbulb, GraduationCap, RotateCcw,
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { analyzeCv, type AnalysisResult } from "@/lib/analysis";
+import { analyzeCv, AnalysisError, type AnalysisResult, type AnalysisStage } from "@/lib/analysis";
 
 export const Route = createFileRoute("/analyze")({
   head: () => ({
@@ -26,6 +26,7 @@ function AnalyzePage() {
   const [jd, setJd] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [stage, setStage] = useState<AnalysisStage | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -41,14 +42,17 @@ function AnalyzePage() {
   const run = async () => {
     if (!file) return setError("Upload your CV first.");
     if (jd.trim().length < 30) return setError("Paste a job description (at least 30 characters).");
+    if (jd.length > 15000) return setError("The job description is too long. Please shorten it to under 15,000 characters.");
+    if (loading) return;
     setError("");
     setLoading(true);
     try {
-      setResult(await analyzeCv({ file, jobDescription: jd }));
-    } catch {
-      setError("Analysis failed. Please try again.");
+      setResult(await analyzeCv({ file, jobDescription: jd, onStage: setStage }));
+    } catch (e) {
+      setError(e instanceof AnalysisError ? e.message : "Analysis failed. Please try again.");
     } finally {
       setLoading(false);
+      setStage(null);
     }
   };
 
@@ -99,7 +103,7 @@ function AnalyzePage() {
             {error && <p className="mt-4 rounded-lg bg-destructive-soft px-4 py-3 text-sm text-destructive">{error}</p>}
             <div className="mt-6 flex justify-end">
               <button onClick={run} disabled={loading} className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-soft hover:opacity-90 disabled:opacity-60">
-                {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analyzing…</> : <><Sparkles className="h-4 w-4" /> Analyze with AI</>}
+                {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> {stage === "reading" ? "Reading CV…" : "Analyzing…"}</> : <><Sparkles className="h-4 w-4" /> Analyze with AI</>}
               </button>
             </div>
           </>

@@ -9,4 +9,5 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- CV analysis UI depends only on `analyzeCv` in src/lib/analysis.ts (currently a mock); replace its body with an AI server function to keep the UI unchanged.
+- CV analysis UI depends only on `analyzeCv` in src/lib/analysis.ts, which extracts PDF text in the browser (pdfjs, lazy-imported) and calls the `runCvAnalysis` server function; keeps the AI key server-side and pdfjs out of SSR.
+- AI output is validated by `sanitizeAnalysis` before display; server function returns typed `{ok:false,message}` errors instead of throwing, because the error middleware turns throws into HTML pages.
