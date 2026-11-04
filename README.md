@@ -1,52 +1,90 @@
-# Career Compass AI
+CareerPilot 🎯
 
-Build a modern, professional AI Career Assistant web application designed for university students and fresh graduates.
+AI-Powered CV Analyzer
 
-The application should include:
+CareerPilot is an AI-powered web application that helps students and fresh graduates evaluate their CVs against specific job descriptions. It analyzes candidates' qualifications, identifies skill gaps, and provides actionable recommendations to improve their CVs and career readiness.
 
-A beautiful landing page introducing the platform.
+✨ Key Features
 
-A CV upload section that accepts PDF files.
+CV Upload: Upload PDF resumes up to 10 MB.
 
-A job description input section.
+PDF Text Extraction: Extracts text from standard text-based PDF files using PDF.js.
 
-An AI-powered CV analysis feature that identifies skills, strengths, weaknesses, and missing qualifications.
+OCR Support: Uses Tesseract.js to recognize text in scanned PDF documents.
 
-A comparison between the candidate's skills and the job requirements.
+AI-Powered Analysis: Uses Google Gemini API to analyze CV content against job requirements.
 
-Personalized recommendations to improve the CV and develop relevant skills.
+Match Score: Provides a compatibility score between the candidate's CV and the target job.
 
-Design requirements:
+Skills Comparison: Identifies matched, partially matched, and missing skills.
 
-Clean and modern interface.
+Strengths & Weaknesses: Highlights candidate strengths and areas for improvement.
 
-Professional dashboard.
+Personalized Recommendations: Suggests CV improvements and skills to develop.
 
-Soft blue and white color palette.
+⚙️ System Workflow
 
-Easy navigation.
+The user uploads a CV in PDF format and enters a job description.
 
-Responsive design for desktop and mobile.
+The application extracts text from the PDF using PDF.js.
 
-Start by building the complete frontend and user interface. Make the application interactive and prepare it for AI integration.
+If the PDF contains scanned images, Tesseract.js performs OCR to extract the text.
 
-This project was built with [Lovable](https://lovable.dev).
+The extracted CV text and job description are sent to the backend.
 
-## Build with Lovable
+The backend sends the information to Google Gemini through the AI SDK.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/9492ab93-5adf-5f4d-9479-39b5e0cf625e).
+The AI generates a structured analysis based on the candidate's qualifications and job requirements.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+The application validates and sanitizes the AI response using Zod.
 
-## Development
+The results are displayed in an interactive analysis dashboard.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+🔒 Privacy & Data Handling
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+The application does not currently provide user accounts or persistent analysis history.
+
+CV files are processed for analysis and are not stored in an application database.
+
+The extracted CV text and job description are sent to Google Gemini for AI analysis.
+
+API keys are kept in server-side environment variables and should never be exposed in frontend code.
+
+Please avoid uploading sensitive personal information when using the application.
+
+
+
+🚧 Current Scope & Limitations
+
+PDF uploads only, with a maximum file size of 10 MB.
+
+OCR currently uses English language recognition.
+
+Analysis quality depends on the extracted text and the AI model's response.
+
+No authentication, database, or saved analysis history.
+
+Gemini API usage is subject to the available model quotas and pricing.
+
+🛠️ Tech Stack
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Google Gemini API
+
+PDF.js
+
+Tesseract.js (OCR)
+
+
+
+👩‍💻 Project Goal
+
+The goal of CareerPilot is to make job applications more informed and effective by helping users understand how their qualifications align with job requirements and where they can improve.
+
+
+Developed as a practical project exploring AI-powered career tools and intelligent document analysis.
