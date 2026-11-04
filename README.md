@@ -1,5 +1,4 @@
-CareerPilot 🎯
-
+🌐 **Live Demo:** [Try CareerPilot](https://danah31-career-compass-ai.enjulie463.workers.dev)
 AI-Powered CV Analyzer
 
 CareerPilot is an AI-powered web application that helps students and fresh graduates evaluate their CVs against specific job descriptions. It analyzes candidates' qualifications, identifies skill gaps, and provides actionable recommendations to improve their CVs and career readiness.
